@@ -1,6 +1,6 @@
 <?php
 $product = new product();
-$res = $product->getProducts($conn);
+$res = $product->getProductsByCategoryName($conn,$name);
 
 // load the products on the page 
 if ($res != "no products available") {
@@ -16,7 +16,7 @@ if ($res != "no products available") {
         include 'views/product-view-1.html';
     }
 } else {
-    echo "show that no products are available ";
+    echo "CURRENTLY NO PRODUCTS ARE AVAILABLE IN THIS CATEGORY";
 }
 
 ?>

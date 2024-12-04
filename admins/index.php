@@ -1,52 +1,43 @@
 <?php
+
+        require('../config/constants.php');
+        require('../config/login_check.php');
         require('partials/menu.php');
         require('../models/product_category.php');
         require('../models/product.php');
+
+//get action value from url
+if (isset($_GET['action'])) {
+   # code...
+   $action = $_GET['action'];
+}elseif (isset($_POST['action'])) {
+   # code...
+   $action = $_POST['action'];
+} else {
+   # code...
+   $action = 'dashboard';
+}
+
         
-      //   HERE WE HANDLE SESSIONS AND ALERTS 
+//router functionality 
+if ($action == 'dashboard') {
+   # code...
+   echo 'dashbord';
+} elseif ($action =='products') {
+   # code...
+   echo 'products';
+}elseif ($action == 'categories') {
+   # code...
+   include 'controllers/category_view_controller.php';
+   include 'views/admin-category-view.html';
+}elseif ($action == 'orders') {
+   # code...
+   echo 'orders';
+}else{
+   # code...
+   $action = 'dashboard';
+}
 
-      if (isset( $_SESSION['success_message'])) {
-         ?>
-            <script>
-               alert('success')
-            </script>
-         <?php
-      }
-
-      // alert failure
-      if (isset($_SESSION['error_message'])) {
-         echo $_SESSION['error_message'];
-      }
-
-      // AKERT HUNDLING ENDS 
-
-         //   HERE WE SHOW PRODUCTS BY CATEGORY ...ALSO ALLOWING ADMIN TO ADD ANEW PRODUCT
-            include 'views/view_products.php';
-
-         //  HERE WE ADD A NEW CATEGORY 
-         
-            include 'views/add_category.php';
-         
-         // UPTO HERE  
-
-         // VIEW CATEGORIES HERE
-?>
-<div class="manage_categories">
-
-   <?php
-      include '../controllers/manage_categories.php';
-   ?>
-
-</div>
-
-<?php
-           
-
-         // UPTO HERE 
-         
-         // HERE WE SHOW FOOTER CONTENT 
-
-            include('partials/footer.php');
 
          // UPTO HERE 
 

@@ -1,63 +1,77 @@
-<?php
-    require('../config/login_check.php');
-?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>johms online store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>johms boutique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-  <body>    
-         <nav class="navbar navbar-expand bg-dark navbar-dark">
-            <div class="container">
-                <a href="" class="navbar-brand logo">JOHM'S <span>boutique</span></a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">DASHBOARD</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="products" class="nav-link">products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#categories" class="nav-link">categories</a>
-                    </li>
-                </ul>
-                <div class="navbar-text">admin</div>
-            </div>
-         </nav>
-         <!-- <header> -->
-            <!-- bars -->
-            <!-- <input type="checkbox" name="" id="toggler">
-            <label for="toggler" class="fas fa-bars"></label> -->
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">
             
-                <!-- Logo -->
-                    <!-- <div class="logo">
-                        <a href="#about">JOHM's<span>boutique</span></a>
-                    </div> -->
-                    <!-- search -->
-            <!-- <input type="checkbox" name="" id="search"> -->
-            <!-- <label for="search" class="search-icon" >Sicon</label> -->
-                    <!-- Main-menu -->
-                    <!-- <input type="text" name="" id="search-bar"> --> 
-                        <!-- <nav class="navbar" class="container"> 
-                                <form action="index.php" method="POST">
-                                    <input type="text" name="look">
-                                    <input type="submit" value="search" name="search">
-                                </form>                                                                                                                       
-                                <a href="index.php">DASHBOARD </a>
-                                <a href="#about">orders</a>
-                                <a href="#products">catalogue</a>
-                                <a href="#contact">contact</a>
-                        </nav>  
-                    <div class="icons">
-                        <a href="./login.php" class="fas fa-person"></a>
-                    </div>
-        </header> -->
-    <!-- Header End -->
+        </h1>
+
+        <!-- Navbar -->
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <!-- Hamburger button -->
+                <button 
+                    class="btn btn-outline-secondary" 
+                    type="button" 
+                    data-bs-toggle="offcanvas" 
+                    data-bs-target="#offcanvasNav" 
+                    aria-controls="offcanvasNav">
+                    <!-- Hamburger icon from Bootstrap Icons -->
+                    <b><i class="bi bi-list"></i></b>
+                </button>
+                <div class="logo-name">
+                    <b>JOHMS ADMIN</b>
+                </div>
+                <span class="navbar-brand mb-0 h1">
+                    <a href="index.php?action=login" style="text-decoration: none;">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                    <i class="bi bi-search search-toggle"></i>
+                    <i class="bi bi-envelope-plus"></i>
+    
+                </span>
+            </div>
+            <div class="search-bar" style="display: none;">
+                <form action="index.php" method="get" class="d-flex">
+                    <input 
+                        type="text" 
+                        name="query" 
+                        class="form-control me-2" 
+                        placeholder="Search for products" 
+                        required>
+                    <input type="hidden" name="action" value="search">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            
+        </nav>
+
+        <!-- Offcanvas Sidebar -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="index.php?action=dashboard" >Dashboard</a></li>
+                    <li class="list-group-item"><a href="index.php?action=products">products</a></li>
+                    <li class="list-group-item"><a href="index.php?action=categories">categories</a></li>
+                    <li class="list-group-item"><a href="index.php?action=orders">orders</a></li>
+                    <li class="list-group-item"><a href="#">logout</a></li>
+                    <li class="list-group-item"><a href="#">add new admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -3,7 +3,12 @@
     include 'models/product.php';
     include 'models/product_category.php';
     include 'config/constants.php';
-
+//logic for login here before headrs are sent 
+if($action = 'login'){
+    include 'controllers/login_controller.php';
+    include 'views/login-view.html';
+    exit();
+}
 // add the header at the top of each page
     include 'views/top-nav.html';
 //include the cart
@@ -11,58 +16,37 @@ include 'views/cart-view.html';
 // scan url and assign variables
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
-}else {
-    $action = 'home';
+        }else {
+            $action = 'home';
 }
+
 // control flow for router
-    if ($action == 'home') {
-        # code...
-        echo "in home";
+   
+if ($action == 'home') {
+    # code...
+    include 'controllers/index_product_controller.php';
+} elseif ($action == 'detailed_view') {
+    //DISPLAY THE PRODUCT CLICKED ON AND SOME RELATED PRODUCTS BELOW IT 
+    include 'controllers/detailed_product_controller.php';
+    include 'controllers/related_category_products_controller.php';//display related products 
+} elseif ($action == 'view_cart') {
+    # code...
+    include 'views/cart-view.html';
+} elseif ($action == 'search') {
+    include 'controllers/index_product_controller.php';
+} elseif ($action == 'category') {
+    if (isset($_GET['name'])) {
+        $name = $_GET['name'];
+        // DISPLAY THE PRODUCTS IN THE NAMED CATEGORY
+        include 'controllers/index_product_by_category_controller.php';
+        // DISPLAY RELATED PRODUCTS 
+        include 'controllers/related_category_products_controller.php';
+        // DISPLAY THE REST OF THE PRODUCTS 
         include 'controllers/index_product_controller.php';
-    }elseif ($action == 'detailed_view') {
-        if (isset($_GET['id'])) {//check if product id is set
-            # code...
-            $id = $_GET['id'];
-            include 'controllers/detailed_product_controller.php';//show product details
-            
-            //display similar products
-            include 'controllers/related_category_products_controller.php';
-        } else {
-            //display the home 
-            $action = 'home';
-        }
-    } elseif ($action == 'view_cart') {
-        # code...
-        include 'views/cart-view.html';
-    }elseif (isset($checkout)) {
-        # code...
-    }elseif ($action =='category') {
-        if (isset($_GET['name'])) {
-            $name = $_GET['name'];
-            // DISPLAY THE PRODUCTS IN THE NAMED CATEGORY
-            include 'controllers/index_product_by_category_controller.php';
-            // DISPLAY RELATED PRODUCTS 
-            include 'controllers/related_category_products_controller.php';
-            // DISPLAY THE REST OF THE PRODUCTS 
-            include 'controllers/index_product_controller.php';
-        }elseif ($action == 'search') {
-            # code...
-            echo "we in";
-            if (isset($_GET['query'])) {
-                # code...
-                $query = $_GET['query'];
-                include 'controllers/search_results_controller.php';
-            } else {
-                # code...
-                $action = 'home';
-            }
-            
-        }
-        else {
-            $action = 'home';
-        }
+    } else {
+        $action = 'home';
     }
-    
+}
     
     
 // add footer at the bottom of each page

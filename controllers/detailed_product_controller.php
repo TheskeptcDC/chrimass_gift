@@ -13,12 +13,20 @@ if ($product_details != null) {
     $description = $product_details['product_description'];
     $new_price = $product_details['new_price'];
     $old_price = $product_details['old_price'];
+    $images = $product_details['product_images']; // Array of images
+    $image_paths = [];
+    
+    foreach ($images as $image) {
+        $image_paths[] = 'images/' . $image;
+    }
+    
     // display the specifications    
         $colour = $specifications['colour'];
         $dressFor = $specifications['dressFor?'];
         $fit = $specifications['fit'];
         $details = $specifications['details'];
-        $size = $specifications['size'];    
+        $size = $specifications['size'];
+        // var_dump($specifications);
     include 'views/detailed_product_view.html';
 } else {
   # code...

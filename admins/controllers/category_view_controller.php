@@ -72,10 +72,21 @@ if (isset($_POST['state'])) {
     $data = array();
     $data['name'] = $_POST['cat_name'];
     $data['description'] = $_POST["cat_description"];
-    $data['active'] = $_POST['active'];
-    $data['featured'] = $_POST['featured'];
     $data['promo_text'] = $_POST['promo_text'];
     $data['id'] = $_POST['cat_id'];
+        if (isset($_POST['active'])) {
+            # code...
+               $data['active'] = $_POST['active'];
+        }else {
+            $data['active'] = 'no';
+        }
+        // check for featured as well
+        if (isset($_POST['featured'])) {
+            # code...
+               $data['featured'] = $_POST['featured'];
+        }else {
+            $data['featured'] = 'no';
+        }
     $edited_category = $category->update($conn,$data);
 
     if ($edited_category == true) {

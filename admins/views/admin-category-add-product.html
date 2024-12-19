@@ -1,0 +1,109 @@
+
+<div class="container mt-5">
+    <!-- <h1 class="mb-4">Product Management</h1> -->
+
+    <!-- Categories and Products -->
+    <div class="accordion" id="categoriesAccordion">
+        <!-- Category Item -->
+        <div class="accordion-item" data-category-id="<?= $category_id; ?>">
+            <h2 class="accordion-header" id="heading-<?= $category_id; ?>">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?= $category_id; ?>" aria-expanded="false" aria-controls="collapse-<?= $category_id; ?>">
+                    <?= $category_name; ?>
+                </button>
+            </h2>
+            <div id="collapse-<?= $category_id; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?= $category_id; ?>" data-bs-parent="#categoriesAccordion">
+                <div class="accordion-body">
+                    <!-- Add New Product -->
+                    <form action="index.php" method="POST" enctype="multipart/form-data" class="mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="prod_name" placeholder="New product" required>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" name="new_price" placeholder="New price">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" name="old_price" placeholder="Old price">
+                            </div>
+                            <div class="col-md-5">
+                                <textarea class="form-control" name="prod_desc" placeholder="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="active" value="yes" required>
+                                    <label class="form-check-label">Active</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="active" value="no" required>
+                                    <label class="form-check-label">Inactive</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="yes" required>
+                                    <label class="form-check-label">Featured</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="no" required>
+                                    <label class="form-check-label">Not Featured</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" class="form-control" name="images[]" multiple>
+                            </div>
+                        </div>
+                        <!-- SPECIFICATIONS  -->
+                          <h6 class="mb-4" style="align-items: center;">specifications</h6>
+                        
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    
+                                    <input type="text" class="form-control" name="spec_size" placeholder="S M L XL XXL" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="color" class="form-control" name="spec_color" placeholder="item colour">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" class="form-control" name="size" placeholder="size">
+                                </div>
+                                <div class="col-md-5">
+                                    <textarea class="form-control" name="spec_comment" placeholder="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dressFor?" value="men" required>
+                                        <label class="form-check-label">For men</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dressFor?" value="women" required>
+                                        <label class="form-check-label">For women</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dressFor?" value="babies" required>
+                                        <label class="form-check-label">Babies</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dressFor?" value="unisex" required>
+                                        <label class="form-check-label">Unisex</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-success w-100">Add Product</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="cat_id" value="<?= $category_id; ?>">
+                            <input type="hidden" name="action" value="products">
+                            <input type="hidden" name="state" value="add_product">
+                        </form>
+                    </form>
+
+                    <!-- Existing Products Table -->
+                 
+
+

@@ -68,11 +68,12 @@
     </style>
 </head>
 <body>
+    <div class="container mt-5">
 <!-- product one  -->
 <div class="product-view">
     <!-- Product Image Section -->
     <div class="product-image">
-        <a href="">
+        <a href="index.php?action=detailed_view&id=<?= $id; ?>">
             <img src="images/ali4_1080x.gif" alt="Product Image">
         </a>
     </div>
@@ -83,6 +84,9 @@
         <!-- <p class="product-description">            short desc        </p> -->
         <div class="product-price"> <?= $new_price; ?>
             <span class="product-old-price"><?= $old_price ?></span>
+        </div>
+        <div class="">
+         
         </div>
     </div>
 </div>

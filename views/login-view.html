@@ -1,0 +1,142 @@
+<style>
+.login_container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .login_top_img {
+            margin-bottom: 25px;
+        }
+
+        .login_top_img img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .login_welcome {
+            margin-bottom: 25px;
+        }
+
+        .login_welcome_text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .login_warning {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .login_form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login_form label {
+            text-align: left;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .user_input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .user_input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot_password {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .forgot_password a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .login_container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login_container">
+        <div class="login_top_img">
+            <img src="images/ali4_1080x.gif" alt="Logo">
+        </div>
+        
+        <div class="login_welcome">
+            <p class="login_welcome_text">Welcome!</p>
+            <p class="login_warning"> 
+                <?php 
+                if (!empty($errors)) {
+                    for ($i = 0; $i < 4; $i++) { 
+                        if (!empty($errors[$i])) {
+                            echo "<p class='login_warning'>" . htmlspecialchars($errors[$i]) . "</p>";
+                        }
+                    }
+                }
+                ?>
+            </p>
+        </div>
+        <div class="home">
+            <div class="login_form latest">
+                <form action="index.php?action=login&state=error" method="POST">
+                    <label for="admin_name">Name</label>
+                    <input type="text" name="admin_name" class="user_input" required>
+                    
+                    <label for="admin_password">Password</label>
+                    <input type="password" name="admin_password" class="user_input" required>
+                    
+                    <div class="forgot_password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    
+                    <input type="submit" name="login" value="Login" class="btn btn-success btn-login">
+                    <a href="index.php?action=home" class="btn forgot_password" style="color: rgb(7, 116, 83);">i just want to browse</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

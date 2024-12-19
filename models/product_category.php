@@ -22,9 +22,21 @@ class product_category{
     }
 
      //to select active  categories only
-     function select_active(){
+     function select_active_category_names($conn){
         $sql = "SELECT * FROM product_category WHERE active = 'yes'";
-        return $sql;
+        $query = mysqli_query($conn,$sql);
+        $count = mysqli_num_rows($query);
+
+        // check number of categories if they exeed one the show else give output no categories in db
+        if ($count > 0) {
+            $active_categories = array();
+            while ($rows = mysqli_fetch_assoc($query)) {
+                $active_categories[] = $rows['category_name']; 
+            }
+            return $active_categories;
+        } else {
+            return "DB returned no results";
+        }
     }
 
     //to search for categories
@@ -38,79 +50,21 @@ class product_category{
  
 
     // Function for getting the category ID based on the result object
-    function displayCategory($res) {
+    function getCategoriesAsArray($conn) {
+        $sql = "SELECT * FROM `product_category`";
+            $res = mysqli_query($conn,$sql);
         if ($res && mysqli_num_rows($res) > 0) {
-            $categories = "";
-            while ($rows = mysqli_fetch_assoc($res)) {
-                $id = htmlspecialchars($rows['category_id']);
-                $p_cat = htmlspecialchars($rows['category_name']);
-                $promo_text = htmlspecialchars($rows['category_prom_text']);
-                $cat_desc = htmlspecialchars($rows['category_description']);
-                $categories = "<h1 class='latest'>{$id}<span>{$promo_text}</span></h1><div class='box-container'>";
+            if ($res) {
+                $categories = [];
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $categories[] = $row;
+                }
+                return $categories;
             }
-            return $categories;
         } else {
             return [];
         }
     }
-
-    // Function for getting the category data based on the result object
-    function displayCategoryData($res) {
-        if ($res && mysqli_num_rows($res) > 0) {
-            $categories = array(); 
-    
-            while ($rows = mysqli_fetch_assoc($res)) {
-                $category = array(
-                    'id' => htmlspecialchars($rows['category_id']),
-                    'name' => htmlspecialchars($rows['category_name']),
-                    'promo_text' => htmlspecialchars($rows['category_prom_text']),
-                    'description' => htmlspecialchars($rows['category_description'])
-                );
-                
-                $categories[] = $category;
-            }
-            
-            return $categories;
-        } else {
-            return [];
-        }
-    }
-
-    // for form validation
-    function validateCategoryData($postData) {
-        $errors = [];
-        
-        // Validate category name
-        if (!isset($postData['cat_name']) || empty(trim($postData['cat_name']))) {
-            $errors[] = "Please enter the category name";
-        }
-        
-        // Validate promotional text
-        if (!isset($postData['promo_text']) || empty(trim($postData['promo_text']))) {
-            $errors[] = "Please enter a promotional text";
-        }
-        
-        // Validate category ID ---SINCE WE ARE USING THIS CLASS FOR BOTH THE ADD TO CAT AND UPDATE CAT-- SO IT CONFLICTS
-        if (!isset($postData['cat_id']) && !isset($postData['cat_name'])) {
-            $errors[] = "Please select a product category";
-        }
-        
-        if (!isset($postData['cat_name']) || empty($postData['cat_name'])) {
-            $errors[] = "Please select a product category";
-        }
-        // Validate active status
-        if (!isset($postData['active']) || !in_array($postData['active'], ['yes', 'no'])) {
-            $errors[] = "Please choose if the category is active";
-        }
-        
-        // Validate featured status
-        if (!isset($postData['featured']) || !in_array($postData['featured'], ['yes', 'no'])) {
-            $errors[] = "Please choose if the category is featured";
-        }
-        
-        return $errors;
-    }
-    
 
     //FUNCTIONS USED BY THE ADMIN 
     
@@ -120,39 +74,14 @@ class product_category{
             $description = mysqli_real_escape_string($conn, $data['description']);
             $featured = isset($data['featured']) ? $data['featured'] : 'no';
             $active = isset($data['active']) ? $data['active'] : 'no';
-            $image_name = '';
     
-            // Handle file upload
-            if (isset($data['image']) && $data['image']['name'] != "") {
-                $image_name = $data['image']['name'];
-                $ext = pathinfo($image_name, PATHINFO_EXTENSION);
-                $image_name = "category_" . rand(000, 999) . '.' . $ext;
-    
-                $source_path = $data['image']['tmp_name'];
-                $destination_path = "assets/categories/" . $image_name;
-    
-                // Create directory if it doesn't exist
-                if (!file_exists("assets/categories/")) {
-                    mkdir("assets/categories/", 0777, true);
-                }
-    
-                $upload = move_uploaded_file($source_path, $destination_path);
-    
-                if (!$upload) {
-                    return [
-                        'success' => false,
-                        'message' => "Failed to upload image."
-                    ];
-                }
-            }
-    
+                
             $sql = "INSERT INTO product_category SET 
                     category_name = '$cat_name',
                     category_prom_text = '$promo_text',
                     category_description = '$description',
                     featured = '$featured',
-                    active = '$active',
-                    image_name = '$image_name'";
+                    active = '$active'";
     
             $res = mysqli_query($conn, $sql);
     
@@ -206,15 +135,17 @@ class product_category{
         $active = $data['active'];
         $featured = $data['featured'];
         $promo_text = $data['promo_text'];
+        $description =$data['description'];
     
         // Create the SQL update query
-        $sql = "UPDATE `product_category` SET 
+       $sql = "UPDATE `product_category` SET 
         `category_name` = '$cat_name',
         `active` = '$active',
+        `category_description` = '$description',
         `featured` = '$featured',
-         `category_description` = '',
+         `category_description` = '$description',
           `category_prom_text` = '$promo_text'
-           WHERE `product_category`.`category_id` = $cat_id";
+           WHERE `category_id` = '$cat_id' ";
     
         // Execute the query
         $res = mysqli_query($conn, $sql);
@@ -223,7 +154,8 @@ class product_category{
         if ($res && mysqli_affected_rows($conn) > 0) {
             return true;
         } else {
-            return false;
+            // return false;
+            return $sql;
         }
     }
     

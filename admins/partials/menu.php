@@ -14,7 +14,7 @@
         </h1>
 
         <!-- Navbar -->
-        <nav class="navbar bg-light">
+        <nav class="navbar bg-light" style="width: 100%">
             <div class="container-fluid">
                 <!-- Hamburger button -->
                 <button 

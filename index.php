@@ -4,10 +4,19 @@
     include 'models/product_category.php';
     include 'config/constants.php';
 //logic for login here before headrs are sent 
-if($action = 'login'){
-    include 'controllers/login_controller.php';
-    include 'views/login-view.html';
-    exit();
+if (isset($_GET['action']) == false && isset($_POST['action']) == false) {
+    # code...
+    $action = 'home';
+}
+if (isset($_GET['action']) || isset($_POST['action'])) {
+    
+    # code...
+
+    if($_GET['action'] == 'login'){
+        include 'controllers/login_controller.php';
+        include 'views/login-view.html';
+        exit();
+    }
 }
 // add the header at the top of each page
     include 'views/top-nav.html';

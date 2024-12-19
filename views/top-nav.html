@@ -30,12 +30,27 @@
                     <b>JOHMS BOUTIQUE</b>
                 </div>
                 <span class="navbar-brand mb-0 h1">
-                    <i class="bi bi-person-circle"></i>
-                    <!-- <a href=""><i class="bi bi-search-heart"></i></a> -->
-                    <i class="bi bi-search"></i>
-                    <i class="bi bi-cart3"></i>
+                    <a href="index.php?action=login" style="text-decoration: none;">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                    <i class="bi bi-search search-toggle"></i>
+                    <i class="bi bi-cart cart-toggle"></i>
+    
                 </span>
             </div>
+            <div class="search-bar" style="display: none;">
+                <form action="index.php" method="get" class="d-flex">
+                    <input 
+                        type="text" 
+                        name="query" 
+                        class="form-control me-2" 
+                        placeholder="Search for products" 
+                        required>
+                    <input type="hidden" name="action" value="search">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            
         </nav>
 
         <!-- Offcanvas Sidebar -->
@@ -46,10 +61,15 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="../">Home</a></li>
+                    <?php
+                        include 'controllers/side_bar_category_controller.php';
+                    ?>
+                    <li class="list-group-item"><a href="index.php?action=home">Home</a></li>
                     <li class="list-group-item"><a href="#about">About</a></li>
                     <li class="list-group-item"><a href="#contacts">contacts</a></li>
                     <li class="list-group-item"><a href="#">Socials</a></li>
+                    <li class="list-group-item"><a href="#">login</a></li>
+                    <li class="list-group-item"><a href="#">create account</a></li>
                 </ul>
             </div>
         </div>

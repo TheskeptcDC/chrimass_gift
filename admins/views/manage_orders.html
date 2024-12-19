@@ -1,0 +1,20 @@
+    <h1>Order Management</h1>
+    <table class="table" border="1">
+        <tr>
+            <th>Order ID</th>
+            <th>Total Price</th>
+            <th>Order Date</th>
+            <th>Actions</th>
+        </tr>
+        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+            <tr>
+                <td><?= $row['order_id']; ?></td>
+                <td>K<?= $row['total_price']; ?></td>
+                <td><?= $row['order_date']; ?></td>
+                <td>
+                    <a href="view_order.php?order_id=<?= $row['order_id']; ?>">View</a> | 
+                    <a href="delete_order.php?order_id=<?= $row['order_id']; ?>" onclick="return confirm('Are you sure?');">Delete</a>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    </table>

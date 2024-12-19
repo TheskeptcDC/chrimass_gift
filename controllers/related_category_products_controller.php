@@ -3,7 +3,7 @@ if (isset($name)) {
     # code...
     $product = new product();
     $res = $product->getRelatedProductsByCategoryName($conn,$name);
-}
+
 
 // load the products on the page 
 if ($res != "no products available") {
@@ -21,5 +21,5 @@ if ($res != "no products available") {
 } else {
     echo "  SEARCH BY POPULAR PRODUCT NAME TO FIND WHAT YOU FANCY QUICKER ";
 }
-
+}
 ?>

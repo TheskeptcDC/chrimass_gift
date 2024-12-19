@@ -23,23 +23,30 @@ if (isset($_GET['action'])) {
 if ($action == 'dashboard') {
    # code...
    echo 'dashbord';
+   echo UPLOAD_DIR;
 } elseif ($action =='products') {
    # code...
-   echo 'products';
+   include 'controllers/products_view_controller.php';
 }elseif ($action == 'categories') {
    # code...
    include 'controllers/category_view_controller.php';
    include 'views/admin-category-view.html';
 }elseif ($action == 'orders') {
    # code...
-   echo 'orders';
-}else{
+   include 'controllers/manage_orders.php';
+}elseif ($action == 'login') {
+   # code...
+   include 'controllers/login_controller.php';
+   include '../views/login-view.html';
+} else{
    # code...
    $action = 'dashboard';
+   echo '';
 }
 
 
          // UPTO HERE 
+include 'partials/footer.php';
 
 ?>
 

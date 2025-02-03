@@ -4,7 +4,7 @@
 
 
         function getProducts($conn){
-            $sql = "SELECT `product_name`, `product_id`, `single_image`, `comment`, `new_price`, `old_price` FROM `product` WHERE `active` = 'yes'";
+            $sql = "SELECT `product_name`, `product_id`, `single_image`, `comment`, `product_images`, `new_price`, `old_price` FROM `product` WHERE `active` = 'yes'";
             $run = mysqli_query($conn,$sql);
             if ($run) {
                 $row = mysqli_num_rows($run);
@@ -93,6 +93,22 @@ function getProductsById($conn, $id) {
     return null;
 }
 
+// get products for the index view --to resolve this redunduncy later 
+function getProductsForIndex($conn) {
+    $sql = "SELECT * FROM `product`";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        $product_details = mysqli_fetch_assoc($result);
+
+        // Decode product_images if stored as JSON
+        $product_details['product_images'] = json_decode($product_details['product_images'], true);
+
+        return $product_details;
+    }
+
+    return null;
+}
 
 // GET ALL PRODUCT DETAILS AND THE SPECIFICATIONS 
 function getProductSpecifications($conn,$id){

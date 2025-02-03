@@ -49,6 +49,8 @@ if (isset($_POST['submit'])) {
             } else {
                 $errors[] = "Failed to add category. " . mysqli_error($conn);
             }
+        }else {
+            echo "error";
         }
     }
 

@@ -2,9 +2,13 @@
 header('Content-Type: application/json'); // Ensure the response is JSON
 include '../config/constants.php';
 
+// Airtel Money API credentials
+$airtel_api_key = '4c724e92-5d0c-4e40-acd8-ef534c584509';
+$airtel_api_secret = '4c724e92-5d0c-4e40-acd8-ef534c584509';
+$airtel_api_endpoint = 'https://openapi.airtel.africa/merchant/v1/payments/';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
-    
 
     if (isset($input['cart'], $input['total'], $input['mobileMoneyNumber'])) {
         $cart = $input['cart'];
@@ -29,14 +33,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 mysqli_query($conn, $item_query);
             }
 
-            echo json_encode(['success' => true]);
+            // Proceed with Airtel Money payment
+            $payment_data = [
+                'reference' => $order_id,
+                'subscriber' => [
+                    'country' => 'UG',
+                    'currency' => 'UGX',
+                    'msisdn' => $mobile_money_number
+                ],
+                'transaction' => [
+                    'amount' => $total,
+                    'country' => 'UG',
+                    'currency' => 'UGX',
+                    'id' => $order_id
+                ]
+            ];
+
+            $ch = curl_init($airtel_api_endpoint);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'X-API-Key: ' . $airtel_api_key,
+                'Authorization: Bearer ' . $airtel_api_secret
+            ]);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payment_data));
+
+            $response = curl_exec($ch);
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($http_code == 200) {
+                echo json_encode(['status' => 'success', 'message' => 'Payment successful']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Payment failed', 'response' => $response]);
+            }
         } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to save order.']);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to insert order']);
         }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid data.']);
+        echo json_encode(['status' => 'error', 'message' => 'Invalid input']);
     }
-} else {
-    http_response_code(405); // Method not allowed
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
+?>

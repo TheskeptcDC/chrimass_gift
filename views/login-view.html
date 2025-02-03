@@ -1,103 +1,73 @@
 <style>
-.login_container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            text-align: center;
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+        margin: 0;
+    }
+    .login_container {
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+    .login_top_img img {
+        max-width: 100px;
+        margin-bottom: 20px;
+    }
+    .login_welcome_text {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .login_warning {
+        color: #dc3545;
+        margin-bottom: 20px;
+    }
+    .forgot_password {
+        text-align: right;
+        margin-bottom: 15px;
+    }
+    .forgot_password a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .forgot_password a:hover {
+        text-decoration: underline;
+    }
+    .btn-login {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .btn-browse {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: rgb(7, 116, 83);
+        text-decoration: none;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .btn-browse:hover {
+        background-color: #f0f0f0;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+        .login_container {
+            width: 90%;
+            padding: 20px;
         }
-
-        .login_top_img {
-            margin-bottom: 25px;
-        }
-
-        .login_top_img img {
-            max-width: 200px;
-            height: auto;
-        }
-
-        .login_welcome {
-            margin-bottom: 25px;
-        }
-
-        .login_welcome_text {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .login_warning {
-            color: red;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .login_form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login_form label {
-            text-align: left;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        .user_input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-
-        .user_input:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        .forgot_password {
-            text-align: right;
-            margin-bottom: 15px;
-        }
-
-        .forgot_password a {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .login_container {
-                width: 90%;
-                padding: 20px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="login_container">
@@ -133,7 +103,7 @@
                     </div>
                     
                     <input type="submit" name="login" value="Login" class="btn btn-success btn-login">
-                    <a href="index.php?action=home" class="btn forgot_password" style="color: rgb(7, 116, 83);">i just want to browse</a>
+                    <a href="index.php?action=home" class="btn-browse">I just want to browse</a>
                 </form>
             </div>
         </div>

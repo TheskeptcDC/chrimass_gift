@@ -5,7 +5,7 @@ require_once('constants.php');
         #then all is well
     }else {
         #redirect to login page
-        header('location:'.SITEURL.'login.php');
+        header('location:'.SITEURL.'index.php?action=login');
         exit();
        
     }
